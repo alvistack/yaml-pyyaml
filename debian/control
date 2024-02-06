@@ -1,0 +1,29 @@
+Source: python-yaml
+Section: python
+Priority: optional
+Standards-Version: 4.5.0
+Maintainer: Wong Hoi Sing Edison <hswong3i@pantarei-design.com>
+Homepage: https://github.com/yaml/pyyaml/tags
+Vcs-Browser: https://github.com/alvistack/yaml-pyyaml
+Vcs-Git: https://github.com/alvistack/yaml-pyyaml.git
+Build-Depends:
+ debhelper,
+ debhelper-compat (= 10),
+ dh-python,
+ fdupes,
+ cython3,
+ libyaml-dev,
+ python3-dev,
+ python3-setuptools,
+
+Package: python3-yaml
+Architecture: amd64
+Description: YAML parser and emitter for Python
+ PyYAML is applicable for a broad range of tasks from complex
+ configuration files to object serialization and persistance.
+Depends:
+ ${misc:Depends},
+ ${shlibs:Depends},
+ ${python3:Depends},
+ python3,
+ libyaml-0-2,

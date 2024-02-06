@@ -1,0 +1,4 @@
+python-yaml source: file-without-copyright-information
+python-yaml source: no-debian-changes
+python-yaml source: source-contains-prebuilt-windows-binary
+python-yaml source: source-package-encodes-python-version
