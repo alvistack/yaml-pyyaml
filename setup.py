@@ -67,13 +67,9 @@ int main(void) {
 
 import sys, os, os.path, pathlib, platform, shutil, tempfile, warnings
 
-# for newer setuptools, enable the embedded distutils before importing setuptools/distutils to avoid warnings
-os.environ['SETUPTOOLS_USE_DISTUTILS'] = 'local'
-
+from distutils import log
 from setuptools import setup, Command, Distribution as _Distribution, Extension as _Extension
 from setuptools.command.build_ext import build_ext as _build_ext
-# NB: distutils imports must remain below setuptools to ensure we use the embedded version
-from distutils import log
 from distutils.errors import DistutilsError, CompileError, LinkError, DistutilsPlatformError
 
 with_cython = False
@@ -82,7 +78,11 @@ if 'sdist' in sys.argv or os.environ.get('PYYAML_FORCE_CYTHON') == '1':
     with_cython = True
 try:
     from Cython.Distutils.extension import Extension as _Extension
-    from Cython.Distutils import build_ext as _build_ext
+    try:
+        from Cython.Distutils.old_build_ext import old_build_ext as _build_ext
+    except ImportError:
+        from Cython.Distutils import build_ext as _build_ext
+
     with_cython = True
 except ImportError:
     if with_cython:
